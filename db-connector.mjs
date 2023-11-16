@@ -8,7 +8,7 @@
 // Description: Database connector code copied from Activity 2 instructions.
 
 // Get an instance of mysql we can use in the app
-import mysql from 'mysql'
+import mysql from 'mysql-await'
 
 // Create a 'connection pool' using the provided credentials
 var pool = mysql.createPool({

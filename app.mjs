@@ -28,6 +28,27 @@ var PORT        = 8075;                 // Set a port number at the top so it's 
 app.set('views', './views')
 app.set('view engine', 'ejs')
 
+// Code Citation
+// =============
+// URL: https://www.npmjs.com/package/express-ejs-layouts
+// Date Retrieved: 2023-11-15
+// Application: Project Step 4 - Node.js App
+// Type: App Configuration
+// Author: https://github.com/Soarez
+// Description: Configuration for express-ejs-layouts module
+import ejsLayouts from 'express-ejs-layouts';
+app.use(ejsLayouts)
+
+// Code Citation
+// =============
+// URL: https://expressjs.com/en/starter/static-files.html
+// Date Retrieved: 2023-11-15
+// Application: Project Step 4 - Node.js App
+// Type: App Configuration
+// Author: https://github.com/Soarez
+// Description: Configure the static files folder, i.e. 'public'
+app.use(express.static('public'))
+
 // Database
 import db from './db-connector.mjs'
 
@@ -35,10 +56,13 @@ import db from './db-connector.mjs'
   ROUTES
 */
 import planes_controller from "./controllers/planes.mjs"
-planes_controller(app)
+planes_controller(app, db)
+
+import models_controller from "./controllers/models.mjs"
+models_controller(app, db)
 
 app.get('/', async (req, res) => {
-  res.send("hello from /")
+  res.render('home')
 });
 
 /*

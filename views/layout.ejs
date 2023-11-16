@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Tickets</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <header>Home</header>
+
+      <nav>
+        <a href="/" class="navbutton">Home</a>
+        <a href="/models" class="navbutton">Plane Models</a>
+        <a href="/planes" class="navbutton">Planes</a>
+        <a href="flights.html" class="navbutton">Flights</a>
+        <a href="pilots.html" class="navbutton">Pilots</a>
+        <a href="passengers.html" class="navbutton">Passengers</a>
+        <a href="tickets.html" class="navbutton">Plane Tickets</a>
+      </nav>
+
+      <div id="main_page">
+        <%- content %>
+      </div>
+    </div>
+  </body>
+</html>
