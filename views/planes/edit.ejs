@@ -1,0 +1,33 @@
+<%- contentFor('content') %>
+
+<div class="border p-3 mt-3">
+  <form method="POST" action="/planes/<%= plane.plane_id %>/update">
+    <legend><strong>Editing Plane No. <%= plane.plane_id %></strong></legend>
+
+    <div class="row">
+      <div class="col">
+        <label>Model Name</label>
+        <select name="model_id" class="form-select">
+          <% for (const model of models) { %>
+            <% const is_selected = model.model_id == plane.model_id %>
+            <option value="<%= model.model_id %>" <%= is_selected ? 'selected' : '' %>>
+              <%= model.model_name %>
+            </option>
+          <% } %>
+        </select>
+      </div>
+
+      <div class="col">
+        <label>Mileage</label>
+        <input type="text" name="mileage" class="form-control" value="<%= plane.mileage %>" />
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="mt-3">
+        <input class="btn btn-primary" type="submit" value="Save">
+        <input class="btn btn-secondary" type="button" value="cancel">
+      </div>
+    </div>
+  </form>
+</div>

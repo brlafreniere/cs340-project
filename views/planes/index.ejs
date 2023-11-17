@@ -10,7 +10,8 @@
       <th scope="col">Plane No.</th>
       <th scope="col">Model</th>
       <th scope="col">Mileage</th>
-      <th scope="col">Actions</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
     </tr>
   </thead>
 
@@ -20,36 +21,13 @@
         <td><%= plane.plane_id %></td>
         <td><%= plane.model_name %></td>
         <td><%= plane.mileage %></td>
+        <td><a href="/planes/<%= plane.plane_id %>/edit">edit</a></td>
         <td><a href="/planes/<%= plane.plane_id %>/confirm_delete">delete</a></td>
       </tr>
     <% } %>
   </tbody>
 </table>
 
-  <p>&nbsp;</p>
-  <div id="update">
-    <form method="POST" id="updateplane">
-      <legend><strong>Update Plane Data</strong></legend>
-        <fieldset class="fields">
-
-        <input type="hidden" name="planeID" id="updateplaneID" value="1">
-        <label>ID: </label> 1 <!--TODO: Get ID of the one clicked on-->
-
-        <label>Model Name</label>
-        <select name="planemodel">
-          <option value="0" selected>&nbsp;</option>
-          <option value="1">Boeing 767</option>
-          <option value="2">Boeing 777</option>
-          <option value="3">Airbus A330</option>
-        </select>
-        <label>Mileage</label>
-        <input type="text" name="planemilage" />
-      </fieldset>
-
-      <input class="btn" type="submit" id="updatesaveplane" value="Save Changes">
-      <input class="btn" type="button" value="cancel" onClick="browsePlanes()">
-    </form>
-  </div><!-- update -->
 
 
   </body>
