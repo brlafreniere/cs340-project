@@ -45,9 +45,20 @@ app.use(ejsLayouts)
 // Date Retrieved: 2023-11-15
 // Application: Project Step 4 - Node.js App
 // Type: App Configuration
-// Author: https://github.com/Soarez
+// Author: Express JS Documentation Team
 // Description: Configure the static files folder, i.e. 'public'
 app.use(express.static('public'))
+
+// Code Citation
+// =============
+// URL: https://stackoverflow.com/questions/9304888/how-to-get-data-passed-from-a-form-in-express-node-js
+// Date Retrieved: 2023-11-16
+// Application: Project Step 4 - Node.js App
+// Type: App Configuration
+// Author: https://stackoverflow.com/users/1832566/alexander
+// Description: configure body parsing
+import bodyParser from 'body-parser';
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Database
 import db from './db-connector.mjs'
