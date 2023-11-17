@@ -15,39 +15,16 @@
   </thead>
 
   <tbody class="table-group-divider">
-    <% for (const record of records) { %>
+    <% for (const plane of planes) { %>
       <tr>
-        <td><%= record.plane_id %></td>
-        <td><%= record.model_name %></td>
-        <td><%= record.mileage %></td>
-        <td><a href="#">delete</a></td>
+        <td><%= plane.plane_id %></td>
+        <td><%= plane.model_name %></td>
+        <td><%= plane.mileage %></td>
+        <td><a href="/planes/<%= plane.plane_id %>/confirm_delete">delete</a></td>
       </tr>
     <% } %>
   </tbody>
 </table>
-
-  <p>&nbsp;</p>
-  </div> <!-- browse -->
-
-  <div id="insert">
-    <form method="POST" id="addplane">
-      <legend><strong>Add Plane</strong></legend>
-      <fieldset class="fields">
-        <label>Model Name</label>
-        <select name="planemodel">
-          <option value="0" selected>&nbsp;</option>
-          <option value="1">Boeing 767</option>
-          <option value="2">Boeing 777</option>
-          <option value="3">Airbus A330</option>
-        </select>
-
-        <label>Mileage</label>
-        <input type="text" name="planemilage" />
-      </fieldset>
-      <input class="btn" type="submit" id="addplane" value="Add Plane">
-      <input class="btn" type="button" value="cancel" onClick="browsePlanes()">
-    </form>
-  </div><!-- insert -->
 
   <p>&nbsp;</p>
   <div id="update">
@@ -74,21 +51,6 @@
     </form>
   </div><!-- update -->
 
-  <p>&nbsp;</p>
-  <div id="delete" style="display: block">
-    <form method="POST" id="deleteplane">
-        <legend><strong>Delete Plane</strong></legend>
-            <fieldset class="fields">
-            <p>Are you sure you wish to delete the following?</p>
-            <input type="hidden" name="planeID" id="deleteplaneID" value="1">
-            <label>Plane with <strong>ID </strong></label> 1 <!--TODO: Get ID of the one clicked on-->
-            <label>and <strong>Model ID </strong> </label> 1
-
-      </fieldset>
-      <input class="btn" type="submit" id="deleteplane" value="Delete Plane">
-      <input class="btn" type="button" value="cancel" onClick="browsePlanes()">
-    </form>
-  </div><!-- delete -->
 
   </body>
 </html>

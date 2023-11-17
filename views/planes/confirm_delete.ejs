@@ -1,0 +1,30 @@
+<%- contentFor('content') %>
+
+<div class="border p-3 mt-3">
+  <form method="POST" action="/planes/<%= plane.plane_id %>/delete">
+    <legend><strong>Delete Plane</strong></legend>
+
+    <div>
+      <p>Are you sure you wish to delete the following?</p>
+      <table class="table border">
+        <thead>
+          <tr>
+            <th>Plane No.</th>
+            <th>Model Name</th>
+            <th>Mileage</th>
+          </tr>
+        </thead>
+        <tr>
+          <td><%= plane.plane_id %></td>
+          <td><%= plane.model_name %></td>
+          <td><%= plane.mileage %></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="mt-3">
+      <input class="btn btn-primary" type="submit" value="Delete Plane">
+      <input class="btn btn-secondary" type="button" value="cancel">
+    </div>
+  </form>
+</div>

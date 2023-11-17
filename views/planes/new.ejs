@@ -6,14 +6,8 @@
 
     <div class="row">
       <div class="col">
-        <label>Plane No.</label>
-        <input type="text" disabled class="form-control" value="<%= next_plane_id %>"/>
-      </div>
-
-      <div class="col">
         <label>Model Name</label>
         <select name="model_id" class="form-select">
-          <option value="0" selected>&nbsp;</option>
           <% for (const model of models) { %>
             <option value="<%= model.model_id %>"><%= model.model_name %></option>
           <% } %>
