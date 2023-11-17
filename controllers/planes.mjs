@@ -5,7 +5,7 @@ function planes_controller(app, db) {
       if (error) {
         res.send(error)
       } else {
-        res.render('planes/index', {records: results})
+      res.render('planes/index', {records: results})
       }
     })
   })
