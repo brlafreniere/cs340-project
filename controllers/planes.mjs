@@ -27,8 +27,7 @@ function planes_controller(app, db) {
   // ---------
 
   app.post('/planes', async (req, res) => {
-    const model_id = req.body.model_id
-    const mileage = req.body.mileage
+    const {model_id, mileage} = req.body
     const result = await db.awaitQuery(insert_plane_query, [model_id, mileage])
     res.status(201).redirect(301, '/planes')
   })
@@ -51,9 +50,8 @@ function planes_controller(app, db) {
   })
 
   app.post('/planes/:plane_id/update', async (req, res) => {
-    const plane_id = req.params.plane_id
-    const model_id = req.body.model_id
-    const mileage = req.body.mileage
+    const {plane_id} = req.params
+    const {model_id, mileage} = req.body
     await db.awaitQuery(update_plane, [model_id, mileage, plane_id])
     res.status(204).redirect(301, '/planes')
   })
@@ -62,7 +60,7 @@ function planes_controller(app, db) {
   // delete / confirm delete
   // ---------
   app.get('/planes/:plane_id/confirm_delete', async (req, res) => {
-    const plane_id = req.params.plane_id
+    const {plane_id} = req.params
     const results = await db.awaitQuery(select_plane_with_model, plane_id)
     const plane = results[0]
 
@@ -70,7 +68,7 @@ function planes_controller(app, db) {
   })
 
   app.post('/planes/:plane_id/delete', async (req, res) => {
-    const plane_id = req.params.plane_id
+    const {plane_id} = req.params
 
     try {
       const result = await db.awaitQuery(delete_plane, plane_id)
