@@ -1,6 +1,8 @@
+const select_planes = `SELECT * FROM Planes JOIN Models ON Planes.model_id = Models.model_id`
 const select_plane_with_model = `SELECT * FROM Planes JOIN Models ON Planes.model_id = Models.model_id WHERE plane_id = ? `
 const delete_plane = `DELETE FROM Planes WHERE plane_id = ?`
 const update_plane = `UPDATE Planes SET model_id = ?, mileage = ? WHERE plane_id = ?`
+const insert_plane_query = `INSERT INTO Planes (model_id, mileage) VALUES (?, ?)`
 
 // for dropdown
 const select_models = `SELECT * FROM Models`
@@ -12,7 +14,6 @@ function planes_controller(app, db) {
   // ---------
 
   app.get('/planes', async (req, res) => {
-    const select_planes = 'SELECT * FROM Planes JOIN Models ON Planes.model_id = Models.model_id'
     try {
       const planes = await db.awaitQuery(select_planes)
       res.render('planes/index', {planes})
@@ -26,7 +27,6 @@ function planes_controller(app, db) {
   // ---------
 
   app.post('/planes', async (req, res) => {
-    const insert_plane_query = `INSERT INTO Planes (model_id, mileage) VALUES (?, ?)`
     const model_id = req.body.model_id
     const mileage = req.body.mileage
     const result = await db.awaitQuery(insert_plane_query, [model_id, mileage])
