@@ -1,0 +1,40 @@
+<%- contentFor('content') %>
+
+<div class="border p-3 mt-3">
+  <form method="POST" action="/flights/<%= flight.flight_id %>/delete">
+    <legend><strong>Delete Flight</strong></legend>
+
+    <div>
+      <p>Are you sure you wish to delete the following?</p>
+      <table class="table border">
+        <thead>
+          <tr>
+            <th>Plane No.</th>
+            <th>Flight No.</th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Pilots</th>
+          </tr>
+        </thead>
+        <tr>
+          <td><%= flight.plane_id %></td>
+          <td><%= flight.flight_id %></td>
+          <td>
+            <input type="datetime-local" disabled value="<%= flight.departure_time %>" />
+          </td>
+          <td>
+            <input type="datetime-local" disabled value="<%= flight.arrival_time %>" />
+          </td>
+          <td>
+            <%= pilots.map(pilot => pilot.first_name + " " + pilot.last_name).join(", ") %>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="mt-3">
+      <input class="btn btn-danger" type="submit" value="Confirm Delete">
+      <input class="btn btn-secondary" type="button" value="Cancel" onClick="javascript:history.back()">
+    </div>
+  </form>
+</div>
