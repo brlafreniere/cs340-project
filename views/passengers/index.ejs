@@ -1,0 +1,32 @@
+<%- contentFor('content') %>
+
+<div class="mt-3">
+  <a href="/passengers/new">New Passenger</a>
+</div>
+
+<table class="table table-striped border mt-3">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Passenger No.</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+
+    <tbody class="table-group-divider">
+      <% for (const passenger of passengers) { %>
+        <tr>
+          <td><%= passenger.passenger_id %></td>
+          <td><%= passenger.first_name %></td>
+          <td><%= passenger.last_name %></td>
+          <td><a href="/passengers/<%= passenger.passenger_id %>/edit">edit</a></td>
+          <td><a href="/passengers/<%= passenger.passenger_id %>/confirm_delete">delete</a></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+  
+</body>
+</html>

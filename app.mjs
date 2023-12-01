@@ -75,6 +75,9 @@ models_controller(app, db)
 import flights_controller from "./controllers/flights.mjs"
 flights_controller(app, db)
 
+import passengers_controller from "./controllers/passengers.mjs"
+passengers_controller(app, db)
+
 app.get('/', async (req, res) => {
   res.render('home')
 });

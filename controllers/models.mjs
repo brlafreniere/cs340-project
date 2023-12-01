@@ -1,28 +1,79 @@
+const select_models = `SELECT * FROM Models`
+const select_model_with_id = `SELECT * FROM Models WHERE model_id = ? `
+const delete_model = `DELETE FROM Models WHERE model_id = ?`
+const update_model = `UPDATE Models SET model_name = ?, capacity = ? WHERE model_id = ?`
+const insert_model_query = `INSERT INTO Models (model_name, capacity) VALUES (?, ?)`
+
+
 function models_controller(app, db) {
-  app.get('/models', (req, res) => {
-    var query_str = 'SELECT * FROM Models'
-    var query = db.query(query_str, (error, results, fields) => {
-      if (error) {
-        res.send(error)
-      } else {
-    	res.render('models/index', {model_records: results})
-      }
-    })
+
+  // ---------
+  // index
+  // ---------
+
+  app.get('/models', async (req, res) => {
+    try {
+      const models = await db.awaitQuery(select_models)
+      res.render('models/index', {models})
+    } catch (error) {
+      res.send(error)
+    }
   })
 
-  app.post('/models', (req, res) => {
-    res.send('submission')
+  // ---------
+  // new / create
+  // ---------
+
+  app.post('/models', async (req, res) => {
+    const {model_name, capacity} = req.body
+    const result = await db.awaitQuery(insert_model_query, [model_name, capacity])
+    res.status(201).redirect(301, '/models')
   })
 
   app.get('/models/new', async (req, res) => {
-    var select_models = 'SELECT * FROM Models'
-    
-    //var select_next_plane_id = 'SELECT MAX(plane_id) FROM Planes'
-    //let models = await db.awaitQuery(select_models)
-    //let next_plane_id = await db.awaitQuery(select_next_plane_id)
-    //next_plane_id = next_plane_id[0]["MAX(plane_id)"]
-    let template_vars = {model_name, capacity}
-    res.render('models/new', template_vars)
+    //const models = await db.awaitQuery(select_models)
+    res.render('models/new')
+  })
+
+  // ---------
+  // edit / update
+  // ---------
+
+  app.get('/models/:model_id/edit', async (req, res) => {
+    const model_id = req.params.model_id
+    const results = await db.awaitQuery(select_model_with_id, model_id)
+    const models = await db.awaitQuery(select_models)
+    const model = results[0]
+    res.render('models/edit', {model})
+  })
+
+  app.post('/models/:model_id/update', async (req, res) => {
+    const {model_id} = req.params
+    const {model_name, capacity} = req.body
+    await db.awaitQuery(update_model, [model_name, capacity, model_id])
+    res.status(204).redirect(301, '/models')
+  })
+
+  // ---------
+  // delete / confirm delete
+  // ---------
+  app.get('/models/:model_id/confirm_delete', async (req, res) => {
+    const {model_id} = req.params
+    const results = await db.awaitQuery(select_model_with_id, model_id)
+    const model = results[0]
+
+    res.render('models/confirm_delete', {model})
+  })
+
+  app.post('/models/:model_id/delete', async (req, res) => {
+    const {model_id} = req.params
+
+    try {
+      const result = await db.awaitQuery(delete_model, model_id)
+      res.status(204).redirect(301, '/models')
+    } catch (error) {
+      res.send(error)
+    }
   })
 }
 
