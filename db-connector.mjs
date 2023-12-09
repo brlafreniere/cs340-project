@@ -9,14 +9,15 @@
 
 // Get an instance of mysql we can use in the app
 import mysql from 'mysql-await'
+import 'dotenv/config'
 
 // Create a 'connection pool' using the provided credentials
 var pool = mysql.createPool({
     connectionLimit : 10,
-    host            : 'classmysql.engr.oregonstate.edu',
-    user            : 'cs340_lafrenbl',
-    password        : '2615',
-    database        : 'cs340_lafrenbl'
+    host            : process.env.DB_HOST,
+    user            : process.env.DB_USER,
+    password        : process.env.DB_PASSWORD,
+    database        : process.env.DB_NAME
 })
 
 // Export it for use in our application
