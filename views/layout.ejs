@@ -10,7 +10,13 @@
 
   <body>
     <div class="container">
-      <header>Home</header>
+      <header>
+        <% if(typeof(header_text) === 'undefined') { %>
+          Fantastic Airlines
+        <% } else { %>
+          <%= header_text %>
+        <% } %>
+      </header>
 
       <nav>
         <a href="/" class="navbutton">Home</a>
