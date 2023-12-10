@@ -30,6 +30,8 @@ CREATE TABLE Flights (
 	plane_id int,
 	departure_time datetime NOT NULL,
 	arrival_time datetime NOT NULL,
+	depart_airport_code varchar(3) NOT NULL,
+	arrive_airport_code varchar(3) NOT NULL,
 	PRIMARY KEY (flight_id),
 	/*A plane can be have many flights*/
 	FOREIGN KEY (plane_id) REFERENCES Planes(plane_id) ON DELETE CASCADE
@@ -105,22 +107,25 @@ VALUES
 	(SELECT model_id FROM Models WHERE model_name="Airbus A330"), 90000
 );
 
-INSERT INTO Flights(plane_id, departure_time, arrival_time)
+INSERT INTO Flights(plane_id, departure_time, arrival_time, depart_airport_code, arrive_airport_code)
 VALUES
 (
 	(SELECT plane_id FROM Planes WHERE plane_id = 1),
 	"2023-12-01 13:30:00",
-	"2023-12-03 13:30:00"
+	"2023-12-03 13:30:00",
+	"PHX", "LAX"
 ),
 (
 	(SELECT plane_id FROM Planes WHERE plane_id = 2),
 	"2023-12-02 13:30:00",
 	"2023-12-04 13:30:00"
+	"JFK", "MIA"
 ),
 (
 	(SELECT plane_id FROM Planes WHERE plane_id = 3),
 	"2023-12-03 13:30:00",
 	"2023-12-05 13:30:00"
+	"DEN", "DFW"
 );
 
 INSERT INTO Passengers(first_name, last_name)
