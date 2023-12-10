@@ -7,52 +7,49 @@
 ----------------------------------------------------------
 ----------------------------------------------------------
 
--- Displays for all tables
+-- Queries to display all records for index/table pages.
 
 -- 6 select statements pulling from 7 tables.
 
---Models Page
+-- Models
 SELECT model_id, model_name, capacity FROM Models
 
---Planes Page
+-- Planes
 SELECT plane_id, mileage, Models.model_id, Models.model_name FROM Planes
 INNER JOIN Models ON Models.model_id = Planes.model_id
 
---Flights Page
+-- Flights
 SELECT flight_id, Planes.plane_id, departure_time, arrival_time FROM Flights
 INNER JOIN Planes ON Planes.plane_id = Flights.plane_id
 INNER JOIN Flights_Pilots ON Flights_Pilots.flight_id = Flight.flight_id
 INNER JOIN Pilots ON Flights_Pilots.pilot_id = Pilots.pilot_id
 
---Pilots Page (Also displays flight ID of the pilot's assigned flight)
-SELECT Pilots.pilot_id, first_name, last_name, flight_hours, Flights_Pilots.flight_id FROM Pilots
-INNER JOIN Flights_Pilots ON Flights_Pilots.pilot_id = Pilots.pilot_id
-INNER JOIN Flights ON Flights.flight_id = Flights_Pilots.pilot_id
+-- Pilots Page
+SELECT pilot_id, first_name, last_name, flight_hours FROM Pilots
 
---Passengers Page
-SELECT passenger_id, first_name, last_name, Tickets.ticket_id FROM Passengers
-INNER JOIN Tickets ON Tickets.ticket_id = Passengers.ticket_id
+-- Passengers
+SELECT passenger_id, first_name, last_name FROM Passengers
 
---Tickets Page
+-- Tickets
 SELECT ticket_id, flight_id, Passengers.passenger_id, CONCAT(Passengers.first_name, " ", Passengers.last_name) AS "Passenger Name" FROM Tickets
 INNER JOIN Passengers ON Passengers.passenger_id = Tickets.passenger_id
 
 ----------------------------------------------------------
 ----------------------------------------------------------
 
---Displays for Update Forms (display specific data points)
+-- Displays for Update Forms (display single record's data points)
 
 -- 5 select statements pulling from 7 tables.
 
---Models
-SELECT model_id, model_name, capacity FROM Models WHERE model_id = :model_id_clicked
+-- Models
+SELECT model_id, model_name, capacity FROM Models WHERE model_id = :model_id_selected
 
---Planes update (Planes, Models)
+-- Planes (JOIN: Models)
 SELECT plane_id, mileage, Models.model_id, Models.model_name FROM Planes
 INNER JOIN Models ON Models.model_id = Planes.model_id
-WHERE plane_id = :plane_id_clicked
+WHERE plane_id = :plane_id_selected
 
--- Flights update (Flights, Planes, Flights_Pilots, Pilots)
+-- Flights (JOIN: Planes, Flights_Pilots, Pilots)
 SELECT
   flight_id, departure_time, arrival_time,
   Pilots.first_name, Pilots.last_name,
@@ -63,11 +60,11 @@ INNER JOIN Flights_Pilots ON Flights_Pilots.flight_id = Flights.flight_id
 INNER JOIN Pilots ON Pilots.pilot_id = Flights_Pilots.pilot_id
 WHERE Flights.flight_id = :flight_id_selected
 
---Passenger Update (Passenger)
+-- Passenger
 SELECT passenger_id, first_name, last_name, ticket_id FROM Passengers
-WHERE passenger_id = :passenger_id_clicked
+WHERE passenger_id = :passenger_id_selected
 
---Ticket Update (Tickets, Passengers)
+-- Ticket (JOIN: Passengers)
 SELECT ticket_id, flight_id, Passengers.passenger_id, (Passengers.first_name, " ", Passengers.last_name) AS "Passenger Name" FROM Tickets
 INNER JOIN Passengers ON Passengers.passenger_id = Tickets.passenger_id
 WHERE ticket_id = :ticket_id_clicked
