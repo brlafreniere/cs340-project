@@ -1,0 +1,39 @@
+<%- contentFor('content') %>
+
+<div class="border p-3 mt-3">
+  <form method="POST" action="/tickets/<%= ticket.ticket_id %>/update">
+    <legend><strong>Editing Ticket No. <%= ticket.ticket_id %></strong></legend>
+
+    <div class="row">
+      <div class="col">
+        <label>Flight ID</label>
+        <select name="flight_id" class="form-select">
+          <% for (const flight of flights) { %>
+            <% const is_selected = flight.flight_id == ticket.flight_id %>
+            <option value="<%= flight.flight_id %>" <%= is_selected ? 'selected' : '' %>>
+              <%= flight.flight_id %>
+            </option>
+          <% } %>
+        </select>
+      </div>
+
+     <div class="col">
+        <label>Passenger</label>
+        <select name="passenger_id" class="form-select">
+          <% for (const passenger of passengers) { %>
+            <% const is_selected = passenger.passenger_id == ticket.passenger_id %>
+            <option value="<%= passenger.passenger_id %>" <%= is_selected ? 'selected' : '' %>>
+              <%=passenger.first_name %> <%=passenger.last_name %>
+            </option>
+          <% } %>
+        </select>
+      </div>
+
+    <div class="col">
+      <div class="mt-3">
+        <input class="btn btn-primary" type="submit" value="Save">
+        <input class="btn btn-secondary" type="button" value="Cancel" onClick="javascript:history.back()">
+      </div>
+    </div>
+  </form>
+</div>

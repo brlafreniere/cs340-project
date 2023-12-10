@@ -1,0 +1,33 @@
+<%- contentFor('content') %>
+
+<div class="border p-3 mt-3">
+  <form method="POST" action="/tickets">
+    <legend><strong>Add Ticket</strong></legend>
+
+    <div class="row">
+    <div class="col">
+    <label>Flight ID</label>
+      <select name="flight_id" class="form-select">
+        <% for (const flight of flights) { %>
+          <option value="<%= flight.flight_id %>"><%= flight.flight_id %></option>
+        <% } %>
+        </select>
+    </div>
+
+    <div class="col">
+    <label>Passenger Name</label>
+      <select name="passenger_id" class="form-select">
+        <% for (const passenger of passengers) { %>
+          <option value="<%= passenger.passenger_id %>"><%= passenger.first_name %> <%= passenger.last_name %></option>
+        <% } %>
+        </select>
+    </div>
+
+    <div class="col">
+      <div class="mt-3">
+        <input class="btn btn-primary" type="submit" value="Add Plane">
+        <input class="btn btn-secondary" type="button" value="Cancel" onClick="javascript:history.back()">
+      </div>
+    </div>
+  </form>
+</div>

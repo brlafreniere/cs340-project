@@ -1,0 +1,36 @@
+<%- contentFor('content') %>
+
+<div class="mt-3">
+  <a href="/tickets/new">New Ticket</a>
+</div>
+
+<table class="table table-striped border mt-3">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Ticket No.</th>
+      <th scope="col">Flight id</th>
+      <th scope="col">Passenger id</th>
+      <th scope="col">Passenger Name</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+
+  <tbody class="table-group-divider">
+    <% for (const ticket of tickets) { %>
+      <tr>
+        <td><%= ticket.ticket_id %></td>
+        <td><%= ticket.flight_id %></td>
+        <td><%= ticket.passenger_id %></td>
+        <td><%= ticket.first_name %> <%= ticket.last_name %></td>
+        <td><a href="/tickets/<%= ticket.ticket_id %>/edit">edit</a></td>
+        <td><a href="/tickets/<%= ticket.ticket_id %>/confirm_delete">delete</a></td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+
+
+  </body>
+</html>
