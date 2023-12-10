@@ -1,3 +1,6 @@
+<%- contentFor('header') %>
+Flights
+
 <%- contentFor('content') %>
 
 <div class="border p-3 mt-3">
@@ -29,6 +32,16 @@
     </div>
 
     <div class="row mt-3">
+      <div class="col">
+        <label>Departure Airport Code</label>
+        <input type="text" name="depart_code" class="form-control" value="<%= flight.depart_code %>" />
+      </div>
+
+      <div class="col">
+        <label>Arrival Airport Code</label>
+        <input type="" name="arrive_code" class="form-control" value="<%= flight.arrive_code %>" />
+      </div>
+
       <div class="col">
         <label>Pilots (Select Multiple)</label>
         <select name="pilot_ids" class="form-control" multiple>

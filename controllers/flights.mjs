@@ -1,11 +1,13 @@
 import moment from "moment"
 
+// index page
 const select_flights = `
 SELECT * FROM Flights
 JOIN Planes ON Flights.plane_id = Planes.plane_id
 JOIN Models ON Planes.model_id = Models.model_id
 `
 
+// specific flight
 const select_flight = `
 SELECT * FROM Flights
 JOIN Planes ON Flights.plane_id = Planes.plane_id
@@ -24,6 +26,7 @@ const select_pilots = `
 SELECT * FROM Pilots
 `
 
+// to display assigned pilots for a specific flight (for edit/dropdown functionality)
 const select_flight_pilots = `
 SELECT * FROM Flights_Pilots
 JOIN Pilots ON Pilots.pilot_id = Flights_Pilots.pilot_id
@@ -36,8 +39,8 @@ WHERE flight_id = ?
 `
 
 const insert_flight_query = `
-INSERT INTO Flights (plane_id, departure_time, arrival_time)
-VALUES (?, ?, ?)
+INSERT INTO Flights (plane_id, departure_time, arrival_time, depart_code, arrive_code)
+VALUES (?, ?, ?, ?, ?)
 `
 
 const insert_flights_pilots_query = `
@@ -76,7 +79,7 @@ function flights_controller(app, db) {
   // ---------
 
   app.post('/flights', async (req, res) => {
-    let {plane_id, departure_time, arrival_time, pilot_ids} = req.body
+    let {plane_id, departure_time, arrival_time, pilot_ids, depart_code, arrive_code} = req.body
 
     departure_time = new Date(departure_time) //.toISOString().slice(0, 19).replace('T', ' ')
     arrival_time = new Date(arrival_time) //.toISOString().slice(0, 19).replace('T', ' ')

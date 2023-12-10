@@ -1,5 +1,5 @@
 <%- contentFor('header') %>
-Flights Index
+Flights
 
 <%- contentFor('content') %>
 
@@ -10,9 +10,10 @@ Flights Index
 <table class="table table-striped border mt-3">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Flight No.</th>
-      <th scope="col">Plane No.</th>
-      <th scope="col">Plane Model</th>
+      <th scope="col">Flight</th>
+      <th scope="col">Plane</th>
+      <th scope="col">Depart</th>
+      <th scope="col">Arrive</th>
       <th scope="col">Edit</th>
       <th scope="col">Delete</th>
     </tr>
@@ -21,9 +22,10 @@ Flights Index
   <tbody class="table-group-divider">
     <% for (const flight of flights) { %>
       <tr>
-        <td><%= flight.flight_id %></td>
-        <td><%= flight.plane_id %></td>
-        <td><%= flight.model_name %></td>
+        <td><%= flight.depart_code %> to <%= flight.arrive_code %></td>
+        <td> #<%= flight.plane_id %> <%= flight.model_name %> </td>
+        <td> <%= flight.departure_time.toLocaleString() %> </td>
+        <td> <%= flight.arrival_time.toLocaleString() %> </td>
         <td><a href="/flights/<%= flight.flight_id %>/edit">edit</a></td>
         <td><a href="/flights/<%= flight.flight_id %>/confirm_delete">delete</a></td>
       </tr>

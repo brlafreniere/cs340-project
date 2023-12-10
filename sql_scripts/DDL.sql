@@ -5,8 +5,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 SET AUTOCOMMIT = 0;
 
 -- Plane models.
-DROP TABLE IF EXISTS Models CASCADE;
-CREATE TABLE Models (
+CREATE OR REPLACE TABLE Models (
 	model_id int AUTO_INCREMENT,
 	model_name varchar(50) NOT NULL,
 	capacity int NOT NULL,
@@ -14,8 +13,7 @@ CREATE TABLE Models (
 );
 
 -- Planes have a plane model.
-DROP TABLE IF EXISTS Planes CASCADE;
-CREATE TABLE Planes (
+CREATE OR REPLACE TABLE Planes (
 	plane_id int AUTO_INCREMENT,
 	model_id int NOT NULL,
   mileage int NOT NULL,
@@ -24,22 +22,20 @@ CREATE TABLE Planes (
 );
 
 -- Flights must have a plane assigned to them. Flights can be assigned to many pilots M:N
-DROP TABLE IF EXISTS Flights CASCADE;
-CREATE TABLE Flights (
+CREATE OR REPLACE TABLE Flights (
 	flight_id int AUTO_INCREMENT,
 	plane_id int,
 	departure_time datetime NOT NULL,
 	arrival_time datetime NOT NULL,
-	depart_airport_code varchar(3) NOT NULL,
-	arrive_airport_code varchar(3) NOT NULL,
+	depart_code varchar(3) NOT NULL,
+	arrive_code varchar(3) NOT NULL,
 	PRIMARY KEY (flight_id),
 	/*A plane can be have many flights*/
 	FOREIGN KEY (plane_id) REFERENCES Planes(plane_id) ON DELETE CASCADE
 );
 
 -- Pilots can be assigned to many flights M:N
-DROP TABLE IF EXISTS Pilots CASCADE;
-CREATE TABLE Pilots (
+CREATE OR REPLACE TABLE Pilots (
 	pilot_id int AUTO_INCREMENT,
 	first_name varchar(50) NOT NULL,
 	last_name varchar(50) NOT NULL,
@@ -48,8 +44,7 @@ CREATE TABLE Pilots (
 );
 
 -- Passengers must have a ticket.
-DROP TABLE IF EXISTS Passengers CASCADE;
-CREATE TABLE Passengers (
+CREATE OR REPLACE TABLE Passengers (
 	passenger_id int AUTO_INCREMENT,
 	first_name varchar(50) NOT NULL,
 	last_name varchar(50) NOT NULL,
@@ -58,8 +53,7 @@ CREATE TABLE Passengers (
 
 -- Tickets must have a flight and a passenger.
 -- M:N Between Flights and Passengers
-DROP TABLE IF EXISTS Tickets CASCADE;
-CREATE TABLE Tickets (
+CREATE OR REPLACE TABLE Tickets (
 	ticket_id int AUTO_INCREMENT,
 	flight_id int NOT NULL,
 	passenger_id int NOT NULL,
@@ -70,8 +64,7 @@ CREATE TABLE Tickets (
 );
 
 -- M:N Between Flights and Pilots
-DROP TABLE IF EXISTS Flights_Pilots CASCADE;
-CREATE TABLE Flights_Pilots (
+CREATE OR REPLACE TABLE Flights_Pilots (
 	flight_id int NOT NULL,
 	pilot_id int NOT NULL,
 	PRIMARY KEY (flight_id, pilot_id),
@@ -107,25 +100,28 @@ VALUES
 	(SELECT model_id FROM Models WHERE model_name="Airbus A330"), 90000
 );
 
-INSERT INTO Flights(plane_id, departure_time, arrival_time, depart_airport_code, arrive_airport_code)
+INSERT INTO Flights(plane_id, departure_time, arrival_time, depart_code, arrive_code)
 VALUES
 (
 	(SELECT plane_id FROM Planes WHERE plane_id = 1),
 	"2023-12-01 13:30:00",
 	"2023-12-03 13:30:00",
-	"PHX", "LAX"
+	"PHX",
+	"LAX"
 ),
 (
 	(SELECT plane_id FROM Planes WHERE plane_id = 2),
 	"2023-12-02 13:30:00",
-	"2023-12-04 13:30:00"
-	"JFK", "MIA"
+	"2023-12-04 13:30:00",
+	"JFK",
+	"MIA"
 ),
 (
 	(SELECT plane_id FROM Planes WHERE plane_id = 3),
 	"2023-12-03 13:30:00",
-	"2023-12-05 13:30:00"
-	"DEN", "DFW"
+	"2023-12-05 13:30:00",
+	"DEN",
+	"DFW"
 );
 
 INSERT INTO Passengers(first_name, last_name)
