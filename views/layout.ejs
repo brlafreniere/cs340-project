@@ -11,10 +11,10 @@
   <body>
     <div class="container">
       <header>
-        <% if(typeof(header_text) === 'undefined') { %>
+        <% if(typeof(header) === 'undefined') { %>
           Fantastic Airlines
         <% } else { %>
-          <%= header_text %>
+          <%- header %>
         <% } %>
       </header>
 
