@@ -3,15 +3,15 @@ import moment from "moment"
 // index page
 const select_flights = `
 SELECT * FROM Flights
-JOIN Planes ON Flights.plane_id = Planes.plane_id
-JOIN Models ON Planes.model_id = Models.model_id
+LEFT JOIN Planes ON Flights.plane_id = Planes.plane_id
+LEFT JOIN Models ON Planes.model_id = Models.model_id
 `
 
 // specific flight
 const select_flight = `
 SELECT * FROM Flights
-JOIN Planes ON Flights.plane_id = Planes.plane_id
-JOIN Models ON Planes.model_id = Models.model_id
+LEFT JOIN Planes ON Flights.plane_id = Planes.plane_id
+LEFT JOIN Models ON Planes.model_id = Models.model_id
 WHERE flight_id = ?
 `
 
@@ -55,7 +55,7 @@ WHERE flight_id = ?
 
 const update_flight = `
 UPDATE Flights
-SET plane_id = ?, departure_time = ?, arrival_time = ?
+SET plane_id = ?, departure_time = ?, arrival_time = ?, depart_code = ?, arrive_code = ?
 WHERE flight_id = ?
 `
 
@@ -81,11 +81,13 @@ function flights_controller(app, db) {
   app.post('/flights', async (req, res) => {
     let {plane_id, departure_time, arrival_time, pilot_ids, depart_code, arrive_code} = req.body
 
+    plane_id = plane_id || null
+
     departure_time = new Date(departure_time) //.toISOString().slice(0, 19).replace('T', ' ')
     arrival_time = new Date(arrival_time) //.toISOString().slice(0, 19).replace('T', ' ')
 
     // need to know the ID of the flight before we can assign pilots
-    const flight_result = await db.awaitQuery(insert_flight_query, [plane_id, departure_time, arrival_time])
+    const flight_result = await db.awaitQuery(insert_flight_query, [plane_id, departure_time, arrival_time, depart_code, arrive_code])
     const flight_id = flight_result['insertId']
 
     for (const pilot_id of pilot_ids) {
@@ -125,9 +127,10 @@ function flights_controller(app, db) {
 
   app.post('/flights/:flight_id/update', async (req, res) => {
     const {flight_id} = req.params
-    let {plane_id, departure_time, arrival_time, pilot_ids} = req.body
+    let {plane_id, departure_time, arrival_time, pilot_ids, depart_code, arrive_code} = req.body
+    plane_id = plane_id || null
 
-    await db.awaitQuery(update_flight, [plane_id, departure_time, arrival_time, flight_id])
+    await db.awaitQuery(update_flight, [plane_id, departure_time, arrival_time, depart_code, arrive_code, flight_id])
 
     // update the assigned pilots
     // it's easier to just delete all assigned pilots, and re-create these records

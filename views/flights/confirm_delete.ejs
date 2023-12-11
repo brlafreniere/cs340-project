@@ -18,8 +18,11 @@
         </thead>
         <tr>
           <td>
-            #<%= flight.plane_id %>
-            <%= flight.model_name %>
+            <% if (!flight.plane_id) { %>
+              None Assigned
+            <% } else { %>
+              #<%= flight.plane_id %> <%= flight.model_name %>
+            <% } %>
           </td>
 
           <td><%= flight.depart_code %> to <%= flight.arrive_code %></td>

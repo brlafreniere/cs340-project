@@ -23,7 +23,13 @@ Flights
     <% for (const flight of flights) { %>
       <tr>
         <td><%= flight.depart_code %> to <%= flight.arrive_code %></td>
-        <td> #<%= flight.plane_id %> <%= flight.model_name %> </td>
+        <td>
+          <% if (!flight.plane_id) { %>
+            None Assigned
+          <% } else { %>
+            #<%= flight.plane_id %> <%= flight.model_name %>
+          <% } %>
+        </td>
         <td> <%= flight.departure_time.toLocaleString() %> </td>
         <td> <%= flight.arrival_time.toLocaleString() %> </td>
         <td><a href="/flights/<%= flight.flight_id %>/edit">edit</a></td>

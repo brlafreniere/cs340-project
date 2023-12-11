@@ -8,6 +8,7 @@
       <div class="col">
         <label>Plane No.</label>
         <select name="plane_id" class="form-select">
+          <option value="">None</option>
           <% for (const plane of planes) { %>
             <option value="<%= plane.plane_id %>">
               #<%= plane.plane_id %>

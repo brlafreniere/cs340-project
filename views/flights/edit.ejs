@@ -11,6 +11,7 @@ Flights
       <div class="col">
         <label>Plane</label>
         <select name="plane_id" class="form-select">
+          <option value="">None</option>
           <% for (const plane of planes) { %>
             <option value="<%= plane.plane_id %>" <%= flight.plane_id == plane.plane_id ? "selected" : null %>>
               #<%= plane.plane_id %>
