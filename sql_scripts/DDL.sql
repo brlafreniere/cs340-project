@@ -104,22 +104,22 @@ INSERT INTO Flights(plane_id, departure_time, arrival_time, depart_code, arrive_
 VALUES
 (
 	(SELECT plane_id FROM Planes WHERE plane_id = 1),
-	"2023-12-01 13:30:00",
-	"2023-12-03 13:30:00",
+	"2024-01-10 14:00:00",
+	"2024-01-10 16:00:00",
 	"PHX",
 	"LAX"
 ),
 (
 	(SELECT plane_id FROM Planes WHERE plane_id = 2),
-	"2023-12-02 13:30:00",
-	"2023-12-04 13:30:00",
+	"2024-01-11 08:30:00",
+	"2024-01-11 13:30:00",
 	"JFK",
 	"MIA"
 ),
 (
 	(SELECT plane_id FROM Planes WHERE plane_id = 3),
-	"2023-12-03 13:30:00",
-	"2023-12-05 13:30:00",
+	"2024-01-12 15:00:00",
+	"2024-01-12 18:30:00",
 	"DEN",
 	"DFW"
 );
