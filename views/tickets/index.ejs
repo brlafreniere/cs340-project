@@ -8,9 +8,10 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">Ticket No.</th>
-      <th scope="col">Flight id</th>
-      <th scope="col">Passenger id</th>
-      <th scope="col">Passenger Name</th>
+      <th scope="col">Flight</th>
+      <th scope="col">Depart</th>
+      <th scope="col">Arrive</th>
+      <th scope="col">Passenger</th>
       <th scope="col">Edit</th>
       <th scope="col">Delete</th>
     </tr>
@@ -20,8 +21,9 @@
     <% for (const ticket of tickets) { %>
       <tr>
         <td><%= ticket.ticket_id %></td>
-        <td><%= ticket.flight_id %></td>
-        <td><%= ticket.passenger_id %></td>
+        <td><%= ticket.depart_code %> to <%= ticket.arrive_code %></td>
+        <td><%= ticket.departure_time.toLocaleString() %></td>
+        <td><%= ticket.arrival_time.toLocaleString() %></td>
         <td><%= ticket.first_name %> <%= ticket.last_name %></td>
         <td><a href="/tickets/<%= ticket.ticket_id %>/edit">edit</a></td>
         <td><a href="/tickets/<%= ticket.ticket_id %>/confirm_delete">delete</a></td>
