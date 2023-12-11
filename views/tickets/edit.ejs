@@ -11,7 +11,7 @@
           <% for (const flight of flights) { %>
             <% const is_selected = flight.flight_id == ticket.flight_id %>
             <option value="<%= flight.flight_id %>" <%= is_selected ? 'selected' : '' %>>
-              <%= flight.flight_id %>
+              #<%= flight.flight_id %> - <%= flight.depart_code %> to <%= flight.arrive_code %> - <%= flight.departure_time.toDateString() %>
             </option>
           <% } %>
         </select>

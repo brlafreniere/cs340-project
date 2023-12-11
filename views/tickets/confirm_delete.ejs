@@ -9,16 +9,18 @@
       <table class="table border">
         <thead>
           <tr>
-            <th>Ticket No.</th>
-            <th>Flight id</th>
-            <th>Passenger id</th>
-            <th>Passenger Name</th>
+            <th scope="col">Ticket No.</th>
+            <th scope="col">Flight</th>
+            <th scope="col">Depart</th>
+            <th scope="col">Arrive</th>
+            <th scope="col">Passenger</th>
           </tr>
         </thead>
         <tr>
           <td><%= ticket.ticket_id %></td>
-          <td><%= ticket.flight_id %></td>
-          <td><%= ticket.passenger_id %></td>
+          <td><%= ticket.depart_code %> to <%= ticket.arrive_code %></td>
+          <td><%= ticket.departure_time.toLocaleString() %></td>
+          <td><%= ticket.arrival_time.toLocaleString() %></td>
           <td><%= ticket.first_name %> <%= ticket.last_name %></td>
         </tr>
       </table>
